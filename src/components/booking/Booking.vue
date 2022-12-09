@@ -4,19 +4,13 @@
       <v-col lg="6" offset-lg="3">
         <v-stepper v-model="e1">
           <v-stepper-header>
-            <v-stepper-step
-                :complete="e1 > 1"
-                step="1"
-            >
+            <v-stepper-step :complete="e1 > 1" step="1">
               Name of step 1
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step
-                :complete="e1 > 2"
-                step="2"
-            >
+            <v-stepper-step :complete="e1 > 2" step="2">
               Name of step 2
             </v-stepper-step>
 
@@ -86,23 +80,48 @@
             </v-stepper-content>
 
             <v-stepper-content step="2">
-              <v-list>
-                <v-list-item two-line v-for="(item, i) in flightsList" :key="i">
-                  <v-list-item-avatar>
-                    <v-img :src="item.image"></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.dates }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+              <v-list class="list-flights">
+                <!-- 1 Вариант с virtual-scroll. В данном компоненте рендарятся только те элементы которые видны на экране, что увеличивает производительность браузера -->
+                <v-virtual-scroll :items="flightsList" height="450px" item-height="60px">
+                  <template v-slot:default="{ item }">
+                    <v-list-item two-line :key="item" @click="flightId = item.id">
+                      <v-list-item-avatar>
+                        <v-img :src="item.image"></v-img>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-subtitle>{{ item.dates[0] }} - {{ item.dates[1] }}</v-list-item-subtitle>
+                      </v-list-item-content>
+                      <v-list-item-action v-if="item.id === flightId">
+                        <v-chip color="primary">Selected</v-chip>
+                      </v-list-item-action>
+                    </v-list-item>
+                  </template>
+
+                </v-virtual-scroll>
+
+                <!-- 2 Вариант с virtual-scroll -->
+                <!--
+                <v-list-item-group>
+                  <v-list-item two-line v-for="(item, i) in flightsList" :key="i">
+                    <v-list-item-avatar>
+                      <v-img :src="item.image"></v-img>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                      <v-list-item-subtitle>{{ item.dates[0] }} - {{ item.dates[1] }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+                -->
+
               </v-list>
               <v-row>
                 <v-col>
-                  <v-btn block color="primary"  rounded dense outlined  @click="e1 = 1">Отмена</v-btn>
+                  <v-btn rounded dense outlined block color="primary" @click="e1 = 1">Отмена</v-btn>
                 </v-col>
                 <v-col>
-                  <v-btn block color="primary" rounded  disabled>Дальше</v-btn>
+                  <v-btn rounded dense block color="primary" :disabled="flightId === null" @click="e1 = 3">Дальше</v-btn>
                 </v-col>
               </v-row>
             </v-stepper-content>
@@ -144,11 +163,12 @@ export default {
   name: "Booking",
   data() {
     return {
-      e1: 1,
+      e1: 2,
       dateDialog: false,
       dates: [],
       destinations: ["Mars", "Moon"],
       destination: null,
+      flightId: null,
       // добавление валидации
       destinationRules: [(v) => !!v || "Выберите значение"],
       dateStartRules: [(v) => !!v || "Выберите начальную дату"],
@@ -167,12 +187,15 @@ export default {
   },
   computed: {
     flightsList() {
-      return fakeList(['2022-12-01', '2022-12-31'], 10);
+      return fakeList(['2022-12-01', '2022-12-31'], 100);
     }
   }
 };
 </script>
 
 <style scoped>
-
+.list-flights {
+  height: 500px;
+  overflow-y: auto;
+}
 </style>

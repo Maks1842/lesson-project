@@ -17,14 +17,12 @@
 
 <script>
 import Booking from "@/components/booking/Booking";
-import NavBar from "@/components/booking/NavBar";
 
 export default {
   name: 'App',
 
   components: {
     Booking,
-    NavBar
   },
 
   data: () => ({
