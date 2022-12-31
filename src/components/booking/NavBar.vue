@@ -1,5 +1,6 @@
 <template>
   <v-card class="overflow-hidden">
+
     <v-app-bar
         :collapse="!collapseOnScroll"
         :collapse-on-scroll="collapseOnScroll"
@@ -20,6 +21,7 @@
           hide-details
       ></v-checkbox>
     </v-app-bar>
+
     <v-sheet
         id="scrolling-techniques-6"
         class="overflow-y-auto"

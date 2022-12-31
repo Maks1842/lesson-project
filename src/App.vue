@@ -1,32 +1,17 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-icon size="40">mdi-rocket-launch-outline</v-icon>
-        <div class="text-h4">CRM</div>
-      </div>
-
-    </v-app-bar>
-
-    <v-main>
-      <Booking/>
-      <NavBar/>
-    </v-main>
+    <Navbar/>
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import Booking from "@/components/booking/Booking";
+import Navbar from "@/components/Navbar";
 
 export default {
   name: 'App',
-
   components: {
-    Booking,
+    Navbar,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
