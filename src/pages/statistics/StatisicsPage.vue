@@ -1,5 +1,5 @@
 <template>
-  <v-container style="margin:10px 0 35px 35px" fluid>
+  <v-container fluid>
     <CheckingCreate v-model="dialog" @addChecking="addChecking"/>
     <div>
       <v-btn class="botton" @click="getCheckingApi" outlined>
@@ -22,7 +22,7 @@
     </v-col>
 
     <v-row>
-      <v-col lg="10" offset-lg="1">
+      <v-col lg="11">
         <v-card>
           <v-card-title>
             <v-text-field v-model="search" label="Search" single-line hide-details
@@ -34,7 +34,7 @@
             </div>
           </v-card-title>
 
-          <v-data-table class="table" :headers="headers" :items="listChecking" :search="search" dense :disable-sort=true>
+          <v-data-table class="table" :headers="headers" :items="listChecking" :search="search" dense :disable-sort=true hide-default-footer>
             <template v-slot:item.progresCheck="{ item }">
               <v-progress-linear class="mb-3" :value="item.countOrgComplit / item.countOrgAll * 100" height="15" color="green">
                 {{ item.countOrgComplit }} из {{ item.countOrgAll }}
@@ -58,9 +58,9 @@
       </v-col>
     </v-row>
 
-    <div>
-      getAccess = {{ authStore.access }}
-    </div>
+<!--    <div>-->
+<!--      getAccess = {{ authStore.access }}-->
+<!--    </div>-->
 
 
   </v-container>
@@ -90,6 +90,7 @@ export default {
       {
         text: 'Проверка',
         value: 'nameCheck',
+        //align: 'start|center|end' - позиционирование внутри ячейки
         align: 'start',
         sortable: true,
         filterable: true,
@@ -113,39 +114,12 @@ export default {
         countOrgAll: 50,
         countOrgComplit: 45,
       },
-      {
-        id: 3,
-        nameCheck: 'Проверка Ставрополь больницы',
-        dateCheck: '22.08.2022',
-        regionCheck: 'Ставропольский край',
-        departmentCheck: 'Министерство здравоохранения',
-        countOrgAll: 76,
-        countOrgComplit: 25,
-      },
 
     ],
-    // listOrgsss: [
-    //   {
-    //     name: 'Детский сад №33333 Тест',
-    //     dateCheck: '15.10.2022',
-    //     userCheck: 'Admin',
-    //     personOrg: 'ЖЖЖЖЖЖЖЖЖЖЖ',
-    //     countQuest: 76,
-    //     countAnswr: 45,
-    //   },
-    //   {
-    //     name: 'Республиканская больница 7777777777',
-    //     dateCheck: '15.10.2022',
-    //     userCheck: 'Admin',
-    //     personOrg: 'УУУУУУУУУУУ',
-    //     countQuest: 56,
-    //     countAnswr: 13,
-    //   },
-    //     ]
   }),
-  // mounted() {
-  //   this.getCheckingApi()
-  // },
+  mounted() {
+    this.getCheckingApi()
+  },
   methods: {
 
     addChecking(checking) {

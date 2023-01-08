@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-app-bar app color="deep-purple accent-4" dark clipped-left>
+      <v-app-bar color="deep-purple accent-4" dark app clipped-left>
 
         <v-toolbar-title>Page title</v-toolbar-title>
 
@@ -76,12 +76,6 @@
       </v-navigation-drawer>
 
     </v-row>
-
-<!--    <div style="margin:100px 0 35px 35px" >-->
-<!--      refresh= {{ tokens.refresh }}-->
-<!--      access= {{ tokens.access }}-->
-
-<!--    </div>-->
   </v-container>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container style="margin:10px 0 35px 35px" fluid>
+  <v-container fluid>
 <!--    <OrganisationAdd v-model="dialogOrg" @addOrganisation="addOrganisation"/>-->
     <OrganisationAdd v-model="dialogOrg" @addOrganisation="addOrganisation"/>
 
@@ -33,7 +33,7 @@
               </v-btn>
             </div>
           </v-card-title>
-          <v-data-table dense :headers="headers" :items="listOrganisation" :search="search">
+          <v-data-table class="table" :headers="headers" :items="listOrganisation" :search="search" dense :disable-sort=true hide-default-footer>
             <template v-slot:item.progresCheck="{ item }">
               <v-progress-linear class="mb-3" :value="item.countAnswr / item.countQuest * 100" height="15" color="green">
                 {{ item.countAnswr }} из {{ item.countQuest }}
@@ -53,7 +53,7 @@
     </v-row>
 
     <div>
-      {{ checkingStore }}
+      {{ listOrganisation }}
     </div>
 
 
@@ -101,14 +101,17 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.getOrganisationList()
+  },
   methods: {
     // addOrganisation(checking) {
     //   this.listChecking.push(checking)
     // },
-    addOrganisation(){
-      let access = this.authStore.tokens[1].access
+    getOrganisationList(){
+      let access = this.authStore.access
 
-      this.axios.get('http://localhost:8000/api/v1/getOrganisationList/', { headers: {"Authorization" : `Bearer ${access}`}, params: {checking_id: 1}})
+      this.axios.get('http://localhost:8000/api/v1/getOrganisationList/', { headers: {"Authorization" : `Bearer ${access}`}, params: {checking_id: 2}})
           .then(response => this.listOrganisation = response.data)
     },
     }
