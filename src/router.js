@@ -19,8 +19,8 @@ const routes = [
         component: () => import('./pages/statistics/StatisicsPage')
     },
     {
-        path: '/debtors',
-        component: () => import('./pages/DebtorsPage')
+        path: '/dashboard',
+        component: () => import('./pages/statistics/DashboardPage')
     },
     {
         path: '/organisations',
