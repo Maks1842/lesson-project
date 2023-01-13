@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <v-row>
       <v-app-bar color="deep-purple accent-4" dark app clipped-left>
 
         <v-toolbar-title>Page title</v-toolbar-title>
@@ -11,7 +10,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-navigation-drawer app permanent :expand-on-hover=true clipped mini-variant-width=40 width=200>
+      <v-navigation-drawer app clipped permanent expand-on-hover mini-variant mini-variant-width=40 width=250>
         <v-list nav dense>
           <v-list-item-group
               v-model="group"
@@ -63,12 +62,14 @@
               </v-list-item>
             </router-link>
 
+            <router-link to="/statistic-user">
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-library</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Библиотека</v-list-item-title>
+              <v-list-item-title>Статистика экспрерта</v-list-item-title>
             </v-list-item>
+            </router-link>
 
 
           </v-list-item-group>
@@ -77,7 +78,6 @@
 
       </v-navigation-drawer>
 
-    </v-row>
   </v-container>
 </template>
 

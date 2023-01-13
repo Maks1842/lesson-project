@@ -27,6 +27,10 @@ const routes = [
         component: () => import('./pages/statistics/OrganistionsPage')
     },
     {
+        path: '/statistic-user',
+        component: () => import('./pages/statistics/StatisticUserPage')
+    },
+    {
         path: '/booking',
         component: () => import('./components/booking/Booking')
     }
